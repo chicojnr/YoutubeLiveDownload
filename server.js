@@ -3,7 +3,7 @@ const ytdlc = require('ytdl-core');
 
 const app = express();
 
-app.get('/', async (req, res) => {
+app.get('/donwload', async (req, res) => {
     try {
         const { url } = req.query;
         const video = await ytdlc.getInfo(url);
