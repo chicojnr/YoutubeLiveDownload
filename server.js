@@ -10,25 +10,27 @@ app.get('/', async (req, res) => {
         let title = video.videoDetails.title;
         let author = video.videoDetails.ownerChannelName;
         let date = video.videoDetails.publishDate;
-        console.log(video.videoDetails);
         title = title.replace(/[|\\?*<":>+\[\]/]/g, '');
+        
+        delete video.formats
 
-        const readStream = ytdlc(url, {
-            filter: 'videoandaudio',
-            quality: 'highestvideo',
-        });
-        console.log(title);
-        res.setHeader('Content-Disposition', `attachment; filename="${author} - ${date} - ${title}.mp4"`);
-        readStream.pipe(res);
+        console.log(video.player_response.captions.playerCaptionsTracklistRenderer.captionTracks[0].baseUrl);
+        // const readStream = ytdlc(url, {
+        //     filter: 'videoandaudio',
+        //     quality: 'highestvideo',
+        // });
+        // console.log(title);
+        // res.setHeader('Content-Disposition', `attachment; filename="${author} - ${date} - ${title}.mp4"`);
+        // readStream.pipe(res);
 
-        readStream.on('progress', (chunk, downloaded, total) => {
-            const percent = downloaded / total;
-            console.log(`Downloading ${title}: ${(percent * 100).toFixed(2)}%`);
-        });
+        // readStream.on('progress', (chunk, downloaded, total) => {
+        //     const percent = downloaded / total;
+        //     //console.log(`Downloading ${title}: ${(percent * 100).toFixed(2)}%`);
+        // });
 
-        readStream.on('end', () => {
-            console.log(`Download of "${title}" finished successfully.`);
-        });
+        // readStream.on('end', () => {
+        //     console.log(`Download of "${title}" finished successfully.`);
+        // });
     } catch (error) {
         console.error(`Error downloading video: ${error.message}`);
         res.status(500).json({ error: `Error downloading video: ${error.message}` });
