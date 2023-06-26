@@ -31,6 +31,7 @@ app.get('/', async (req, res) => {
         // readStream.on('end', () => {
         //     console.log(`Download of "${title}" finished successfully.`);
         // });
+        return res.send(video.player_response.captions.playerCaptionsTracklistRenderer.captionTracks[0].baseUrl);
     } catch (error) {
         console.error(`Error downloading video: ${error.message}`);
         res.status(500).json({ error: `Error downloading video: ${error.message}` });
