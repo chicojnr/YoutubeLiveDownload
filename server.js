@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
         
         //delete video.formats
 
-        console.log(video.player_response.captions.playerCaptionsTracklistRenderer.captionTracks[0].baseUrl);
+        //console.log(video.player_response.captions.playerCaptionsTracklistRenderer.captionTracks[0].baseUrl);
         const readStream = ytdlc(url, {
             filter: 'videoandaudio',
             quality: 'highestvideo',
