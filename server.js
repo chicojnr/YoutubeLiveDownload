@@ -7,10 +7,10 @@ app.get('/', async (req, res) => {
     try {
         const { url } = req.query;
         const video = await ytdlc.getInfo(url);
-        let title = video.videoDetails.title;
+        let title = video.videoDetails.title.replace(/[|\\?*<":>+\[\]/]/g, '');;
         let author = video.videoDetails.ownerChannelName;
         let date = video.videoDetails.publishDate;
-        title = title.replace(/[|\\?*<":>+\[\]/]/g, '');
+        title = title;
         
         //delete video.formats
 
@@ -25,7 +25,7 @@ app.get('/', async (req, res) => {
 
         readStream.on('progress', (chunk, downloaded, total) => {
             const percent = downloaded / total;
-            //console.log(`Downloading ${title}: ${(percent * 100).toFixed(2)}%`);
+            console.log(`Downloading ${title}: ${(percent * 100).toFixed(2)}%`);
         });
 
         readStream.on('end', () => {
