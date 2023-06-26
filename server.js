@@ -3,7 +3,7 @@ const ytdlc = require('ytdl-core');
 
 const app = express();
 
-app.get('/donwload', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         const { url } = req.query;
         const video = await ytdlc.getInfo(url);
@@ -17,7 +17,7 @@ app.get('/donwload', async (req, res) => {
             filter: 'videoandaudio',
             quality: 'highestvideo',
         });
-
+        console.log(title);
         res.setHeader('Content-Disposition', `attachment; filename="${author} - ${date} - ${title}.mp4"`);
         readStream.pipe(res);
 
